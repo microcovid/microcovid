@@ -305,14 +305,17 @@ indicating that the vaccine is doing better than simply preventing symptoms. The
 | Never symptomatic cases | 73            | 57               |
 
 Treating never-symptomatic cases as .42 relative infectiousness, this gives: 
-control group adjusted infectiousness: \`(1 * 248 + 0.42 * 73) = 279%\` 
-vaccinated group adjusted infectiousness: \`(1 * 84 + 0.42 * 57) = 109\`
-The relative infectiousness of the vaccinated group is therefore \`109 / 279 = 0.39\`
+control group adjusted infectiousness: \`(1 * 248 + 0.42 * 73) = 279\` 
+vaccinated group adjusted infectiousness: \`(1 * 84 + 0.42 * 57) = 108\`
+The relative infectiousness of the vaccinated group is therefore \`108 / 279 = 0.39\`
+We take this as our overall recommended microCOVID multiplier 14 days after the 2nd dose of the AstraZeneca vaccine, which we round to **0.4**.
 
-AstraZeneca's trial found 10 cases of severe COVID, all in the control group. We calculate a risk reduction of 90%, 95% CI of (22%, 100%)[^confidence-interval]
+As a side note, we also observe that AstraZeneca's trial found 10 cases of severe COVID, all in the control group. Using a confidence interval calculator[^confidence-interval], we estimate a reduction in risk (of severe COVID specifically) of 90%, 95% CI of (22%, 100%)
 
 ### Moderna & Pfizer
-Phase III trials from Moderna and Pfizer (the most common vaccines in the United States) only tested for symptomatic COVID. Moderna’s and Pfizer’s vaccines are similar in both design and efficacy, so we consider them together.
+Moderna’s and Pfizer’s vaccines (which are the most common vaccines in the United States) are similar in both design and efficacy, so we consider them together. Unfortunately, Phase III trials from both Moderna and Pfizer only tested for symptomatic COVID, which makes it more difficult to estimate the overall reduction in *total* infections (including never-symptomatic cases). However, we use supplementary data to estimate the reduction in never-symptomatic COVID as well. Here we first explain the data from the Phase III trials, and then explain how we augment their data to reach our overall estimate.
+
+Below is the data from the Phase III studies. This data shows that these two vaccines are very, very effective at preventing symptomatic COVID (95% for Pfizer and 94% for Moderna). However, it does not yet allow us to estimate the overall reduction.
 
 Data from [Pfizer’s phase 3 study](https://www.nejm.org/doi/full/10.1056/NEJMoa2034577):
 
@@ -330,11 +333,10 @@ Data from [Moderna’s phase 3 study](https://www.nejm.org/doi/full/10.1056/NEJM
 | Symptomatic Cases | 185           | 11               |
 | Severe Cases      | 30            | 0                |
 
-First, we note that these two vaccines are very, very effective at preventing symptomatic COVID (95% for Pfizer and 94% for Moderna). Second, we note that the Phase III studies do not include data on cases without symptoms. 
 
-However, in a [supplement provided to the FDA](https://www.fda.gov/media/144453/download), Moderna showed a 63% reduction in positive PCR swabs at the time of the 2nd dose among people who had no symptoms of COVID up to that point.
+Fortunately, we have access to a [supplement provided to the FDA](https://www.fda.gov/media/144453/download), which provides a useful clue about reduction of non-symptomatic cases. In this supplementary data, Moderna showed a 63% reduction in positive PCR swabs at the time of the 2nd dose among people who had no symptoms of COVID up to that point. Some of these people might've later shown symptoms. This indicates that the total reduction in Later-Symptomatic + Never Symptomatic COVID cases from *the first dose* of Moderna’s vaccine was 63%.
 
-This indicates that the total reduction in Symptomatic + Never Symptomatic COVID cases from *the first dose* of Moderna’s vaccine is 63%. Likely it is even better after the second dose. From this, we construct the following chart:
+We therefore use \`1 - 0.63 = 0.37 \` as a conservative estimate of the reduction of total COVID cases in the vaccinated group. Likely it is even better after the second dose. We also note that, from Byambsuren et al. again, if 17% of cases are never symptomatic, then there are 1/(1-0.17)=1.2x as many symptomatic-and-asymptomatic cases combined as there are never symptomatic cases. From this, we construct the following chart:
 
 |                                                         | Control Group                | Vaccinated Group            |
 | ------------------------------------------------------- | ---------------------------- | --------------------------- |
