@@ -464,6 +464,10 @@ class State(Place):
         if self.country == "US":
             result.topLevelGroup = "US states"
             result.subdivisions = [county.app_key for county in self.counties.values()]
+        if self.country == "Canada":
+            # actually provinces, but reflecting that might break the spreadsheet.
+            result.topLevelGroup = "Canada states"
+            result.subdivisions = [county.app_key for county in self.counties.values()]
         return result
 
 

@@ -126,15 +126,25 @@
     "location_selector_header": "Step 1: Enter your location",
     "location_subprompt": {
       "country_or_regions": "Entire country, or select region...",
+      "CA": "Entire country, or select province/territory...",
       "US-LA": "Entire state, or select parish...",
       "US-AK": "Entire state, or select borough...",
       "US": "Entire state, or select county..."
     },
     "location_sublabel": {
       "country_or_regions": "Region",
+      "CA": "Province/territory",
       "US-LA": "Parish",
       "US-AK": "Borough",
       "US": "County"
+    },
+    "location_subsubprompt": {
+      "country_or_regions": "Entire region, or select subregion...",
+      "CA": "Entire province/territory, or select PHU"
+    },
+    "location_subsublabel": {
+      "country_or_regions": "Subregion",
+      "CA": "Public health unit"
     },
     "select_location_label": "Country or US State",
     "select_location_placeholder": "Select Country or US State...",
