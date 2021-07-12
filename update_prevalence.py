@@ -228,6 +228,30 @@ class RomaniaPrevalenceData(pydantic.BaseModel):
     TotalCases: int = pydantic.Field(alias="Cazuri total")
 
 
+# Canada Public Health Region dataset:
+class CanadaPHUFacts(pydantic.BaseModel):
+    SOURCE: ClassVar[
+        str
+    ] = "https://raw.githubusercontent.com/ccodwg/Covid19Canada/master/other/hr_map_sk_new.csv"
+
+    HR_UID: int
+    province: str
+    province_full: str
+    health_region: str
+    pop: Optional[int]
+
+
+class CanadaPrevalenceData(pydantic.BaseModel):
+    SOURCE: ClassVar[
+        str
+    ] = "https://raw.githubusercontent.com/ccodwg/Covid19Canada/master/timeseries_hr_sk_new/sk_new_cases_timeseries_hr_combined.csv"
+
+    province: str
+    health_region: str
+    date_report: str # DD-MM-YYYY. Why ;_;
+    cumulative_cases: int
+
+
 # Represents number of people vaccinated.
 class Vaccination(pydantic.BaseModel):
     partial_vaccinations: int = 0
@@ -572,6 +596,12 @@ class AllData:
         else:
             return self.get_country(jhu_line.Country_Region)
 
+    def get_canada_phu_place(self, line: CanadaPHUFacts) -> Place:
+        return self.get_county(
+                line.health_region,
+                state=line.province_full,
+                country="Canada")
+
     def populate_fips_cache(self) -> None:
         self.fips_to_county.clear()
         for country in self.countries.values():
@@ -658,7 +688,8 @@ class AllData:
 
         for country in self.countries.values():
             for state in country.states.values():
-                rolldown_vaccine_types(state, state.counties.values())
+                if state.vaccines_by_type is not None:
+                    rolldown_vaccine_types(state, state.counties.values())
                 for county in state.counties.values():
                     if county.population == 0 and county.name not in fake_names:
                         raise ValueError(f"Missing population data for {county!r}")
@@ -989,6 +1020,35 @@ def main() -> None:
             state.population = line.Population
             state.cumulative_cases[line.Date] = line.TotalCases
 
+        # Add Canada Public Health Unit (county-level) population data
+        for line in parse_csv(cache, CanadaPHUFacts, CanadaPHUFacts.SOURCE):
+            if (line.HR_UID == 9999): # Repatriated/not reported. Skip.
+                continue
+            place = data.get_canada_phu_place(line)
+            if place.population != 0:
+                raise ValueError(
+                    f"Duplicate population info for {place!r}: {line.Population}"
+                )
+            place.population = line.pop
+
+        # Add Canada Public Health Unit (county-level) cumulative cases data
+        for line in parse_csv(cache, CanadaPrevalenceData, CanadaPrevalenceData.SOURCE):
+            if line.health_region == "Not Reported" or line.province == line.health_region:
+                continue
+            province_full = line.province
+            if (line.province == "BC"):
+                province_full = "British Columbia"
+            elif (line.province == "NL"):
+                province_full = "Newfoundland and Labrador"
+            elif (line.province == "NWT"):
+                province_full = "Northwest Territories"
+            elif (line.province == "PEI"):
+                province_full = "Prince Edward Island"
+
+            place = data.get_county(line.health_region, state=province_full, country="Canada")
+            processed_date = datetime.strptime(line.date_report, "%d-%m-%Y").date()
+            if (processed_date >= populate_since):
+                place.cumulative_cases[processed_date] = line.cumulative_cases
 
     finally:
         cache.save()
