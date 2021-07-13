@@ -49,12 +49,17 @@ export const PrevalenceControls: React.FunctionComponent<{
     }
   }
 
-  const setLocationData = (topLocation: string, subLocation: string) => {
+  const setLocationData = (
+    topLocation: string,
+    subLocation: string,
+    subSubLocation: string,
+  ) => {
     setter({
       ...data,
-      ...dataForLocation(subLocation || topLocation),
+      ...dataForLocation(subSubLocation || subLocation || topLocation),
       topLocation,
       subLocation,
+      subSubLocation,
     })
   }
 
@@ -71,9 +76,10 @@ export const PrevalenceControls: React.FunctionComponent<{
       // Going back to location mode. Reset location data so that details match the selected country/state and region.
       const topLocation = data.topLocation
       const subLocation = data.subLocation
+      const subSubLocation = data.subSubLocation
       setter({
         ...data,
-        ...dataForLocation(subLocation || topLocation),
+        ...dataForLocation(subSubLocation || subLocation || topLocation),
         useManualEntry,
       })
     }
@@ -83,28 +89,42 @@ export const PrevalenceControls: React.FunctionComponent<{
   useEffect(() => {
     if (
       !data.useManualEntry &&
-      (isFilled(data.subLocation) || isTopLocation(data.topLocation))
+      (isFilled(data.subSubLocation || '') ||
+        isFilled(data.subLocation) ||
+        isTopLocation(data.topLocation))
     ) {
-      setLocationData(data.topLocation, data.subLocation)
+      setLocationData(
+        data.topLocation,
+        data.subLocation,
+        data.subSubLocation || '',
+      )
     }
     // Intentionally not depending on data so that this runs once on mount.
     // eslint-disable-next-line
   }, [])
 
   let subPromptType = 'country_or_regions'
-  if (isTopLocation(data.topLocation) && data.topLocation.startsWith('US_')) {
-    if (Locations[data.topLocation].label === 'Louisiana') {
-      subPromptType = 'US-LA'
-    } else if (Locations[data.topLocation].label === 'Alaska') {
-      subPromptType = 'US-AK'
-    } else {
-      subPromptType = 'US'
+  if (isTopLocation(data.topLocation)) {
+    if (data.topLocation.startsWith('US_')) {
+      if (Locations[data.topLocation].label === 'Louisiana') {
+        subPromptType = 'US-LA'
+      } else if (Locations[data.topLocation].label === 'Alaska') {
+        subPromptType = 'US-AK'
+      } else {
+        subPromptType = 'US'
+      }
+    } else if (data.topLocation === 'Canada') {
+      subPromptType = 'CA'
     }
   }
 
   const showSubLocation =
     isTopLocation(data.topLocation) &&
     Locations[data.topLocation].subdivisions.length > 1
+
+  const showSubSubLocation =
+    isFilled(data.subLocation) &&
+    Locations[data.subLocation].subdivisions.length > 1
 
   const locationSet = !data.useManualEntry && isTopLocation(data.topLocation)
 
@@ -155,6 +175,22 @@ export const PrevalenceControls: React.FunctionComponent<{
     (option) => option.value === data.subLocation,
   )
 
+  const subSubLocationOptions = !showSubSubLocation
+    ? []
+    : Locations[data.subLocation].subdivisions.map((locKey) => {
+        return { label: Locations[locKey].label, value: locKey }
+      })
+  console.log(
+    'show non us counties:',
+    showSubSubLocation,
+    data.subLocation,
+    'options:',
+    subSubLocationOptions,
+  )
+  const selectedSubSubLocation = subSubLocationOptions.find(
+    (option) => option.value === data.subSubLocation,
+  )
+
   return (
     <React.Fragment>
       <header id="location">
@@ -173,10 +209,10 @@ export const PrevalenceControls: React.FunctionComponent<{
           inputProps={{ autoComplete: 'chrome-off' }}
           onChange={(e: Option[]) => {
             if (e.length !== 1) {
-              setLocationData('', '')
+              setLocationData('', '', '')
               return
             }
-            setLocationData(e[0].value, '')
+            setLocationData(e[0].value, '', '')
           }}
           options={topLocationOptions}
           placeholder={t('calculator.select_location_placeholder')}
@@ -199,15 +235,44 @@ export const PrevalenceControls: React.FunctionComponent<{
             inputProps={{ autoComplete: 'chrome-off' }}
             onChange={(e: Option[]) => {
               if (e.length !== 1) {
-                setLocationData(data.topLocation, '')
+                setLocationData(data.topLocation, '', '')
                 return
               }
-              setLocationData(data.topLocation, e[0].value)
+              setLocationData(data.topLocation, e[0].value, '')
             }}
             options={subLocationOptions}
             placeholder={t(`calculator.location_subprompt.${subPromptType}`)}
             selected={
               selectedSubLocation === undefined ? [] : [selectedSubLocation]
+            }
+          />
+        </div>
+      )}
+      {showSubSubLocation && (
+        <div className="form-group">
+          <ControlLabel
+            id="sub-location-typeahead"
+            header={t(`calculator.location_subsublabel.${subPromptType}`)}
+          />
+          <Typeahead
+            clearButton={true}
+            disabled={isManualEntryCurrently}
+            highlightOnlyResult={true}
+            id="sub-sub-location-typeahead"
+            inputProps={{ autoComplete: 'chrome-off' }}
+            onChange={(e: Option[]) => {
+              if (e.length !== 1) {
+                setLocationData(data.topLocation, data.subLocation, '')
+                return
+              }
+              setLocationData(data.topLocation, data.subLocation, e[0].value)
+            }}
+            options={subSubLocationOptions}
+            placeholder={t(`calculator.location_subsubprompt.${subPromptType}`)}
+            selected={
+              selectedSubSubLocation === undefined
+                ? []
+                : [selectedSubSubLocation]
             }
           />
         </div>

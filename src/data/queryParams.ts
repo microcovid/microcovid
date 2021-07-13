@@ -10,6 +10,7 @@ export const queryConfig: QueryParamConfigMap = {
   useManualEntry: NumberParam,
   topLocation: StringParam,
   subLocation: StringParam,
+  subSubLocation: StringParam,
   population: StringParam,
   casesPastWeek: NumberParam,
   casesIncreasingPercentage: NumberParam,

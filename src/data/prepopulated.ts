@@ -6,6 +6,7 @@ export type PartialData = Omit<
   | 'useManualEntry'
   | 'topLocation'
   | 'subLocation'
+  | 'subSubLocation'
   | 'population'
   | 'casesPastWeek'
   | 'casesIncreasingPercentage'

@@ -1,0 +1,20 @@
+Name,Population,Cases in past week,Reported prevalence,Underreporting factor,Delay factor,Estimated prevalence
+Entire state,8537674,454,5.3e-05,3.8975,1.0,0.000208
+Abitibi-Témiscamingue,147542,1,1.4e-05,3.8975,1.0,5.3e-05
+Bas-Saint-Laurent,197322,9,5.1e-05,3.8975,2.0,0.000395
+Capitale-Nationale,750645,13,1.9e-05,3.8975,1.0,7.3e-05
+Chaudière-Appalaches,428618,5,1.4e-05,3.8975,1.0,5.5e-05
+Côte-Nord,90704,2,3.3e-05,3.8975,2.0,0.000258
+Estrie,489479,13,2.9e-05,3.8975,1.4444,0.000161
+Gaspésie-Îles-de-la-Madeleine,90334,1,2.2e-05,3.8975,1.0,8.6e-05
+Lanaudière,515448,19,3.9e-05,3.8975,1.0,0.000151
+Laurentides,620264,12,2.1e-05,3.8975,1.0,8.2e-05
+Laval,438973,59,0.000137,3.8975,1.0,0.000533
+Mauricie,520285,7,1.5e-05,3.8975,1.0,6e-05
+Montérégie,1421586,46,3.3e-05,3.8975,1.0,0.000129
+Montréal,2052910,251,0.000123,3.8975,1.2741,0.00061
+Nord-du-Québec,13633,0,7.3e-05,3.8975,1.0,0.000286
+Nunavik,14102,0,7.1e-05,3.8975,1.0,0.000276
+Outaouais,397193,14,3.8e-05,3.8975,1.0,0.000147
+Saguenay,277796,3,1.4e-05,3.8975,1.0,5.6e-05
+Terres-Cries-de-la-Baie-James,18131,0,5.5e-05,3.8975,1.0,0.000215

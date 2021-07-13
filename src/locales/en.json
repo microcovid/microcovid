@@ -126,22 +126,32 @@
     "location_selector_header": "Step 1: Enter your location",
     "location_subprompt": {
       "country_or_regions": "Entire country, or select region...",
+      "CA": "Entire country, or select province/territory...",
       "US-LA": "Entire state, or select parish...",
       "US-AK": "Entire state, or select borough...",
       "US": "Entire state, or select county..."
     },
     "location_sublabel": {
       "country_or_regions": "Region",
+      "CA": "Province/territory",
       "US-LA": "Parish",
       "US-AK": "Borough",
       "US": "County"
+    },
+    "location_subsubprompt": {
+      "country_or_regions": "Entire region, or select subregion...",
+      "CA": "Entire province/territory, or select PHU"
+    },
+    "location_subsublabel": {
+      "country_or_regions": "Subregion",
+      "CA": "Public health unit"
     },
     "select_location_label": "Country or US State",
     "select_location_placeholder": "Select Country or US State...",
     "switch_button": {
       "enter_data_manually": "Override location-based data"
     },
-    "prevalence_info_source_information": "Prevalence data consolidated from <1>Johns Hopkins CSSE</1> (reported cases), <4>Covid Act Now</4> (US positive test rates), <7>Our World in Data</7> (international positive test rates), and <10>Coronavirus COVID-19 România</10> (Romania reported cases).",
+    "prevalence_info_source_information": "Prevalence data consolidated from <1>Johns Hopkins CSSE</1> (reported cases), <4>Covid Act Now</4> (US positive test rates), <7>Our World in Data</7> (international positive test rates), <10>Coronavirus COVID-19 România</10> (Romania reported cases), and <13>COVID-19 Canada Open Data Working Group</13> (Canada province and PHU data, <16>CC BY 4.0</16>).",
     "select_scenario": "Start with a premade scenario or <2>build a custom scenario</2>:",
     "no_prebuilt_scenario_found": "No premade scenario found.",
     "saved_scenario_continue_custom": "Build a custom scenario",

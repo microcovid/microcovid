@@ -1,0 +1,9 @@
+Name,Population,Cases in past week,Reported prevalence,Underreporting factor,Delay factor,Estimated prevalence
+Entire state,779993,0,1e-06,3.8975,1.0,5e-06
+Zone 1 (Moncton area),222694,0,4e-06,3.8975,1.0,1.8e-05
+Zone 2 (Saint John area),176280,0,6e-06,3.8975,1.0,2.2e-05
+Zone 3 (Fredericton area),183421,0,5e-06,3.8975,1.0,2.1e-05
+Zone 4 (Edmundston area),48254,0,2.1e-05,3.8975,1.0,8.1e-05
+Zone 5 (Campbellton area),25199,0,4e-05,3.8975,1.0,0.000155
+Zone 6 (Bathurst area),76763,0,1.3e-05,3.8975,1.0,5.1e-05
+Zone 7 (Miramichi area),44216,0,2.3e-05,3.8975,1.0,8.8e-05
