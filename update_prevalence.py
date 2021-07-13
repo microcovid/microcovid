@@ -252,6 +252,16 @@ class CanadaPrevalenceData(pydantic.BaseModel):
     cumulative_cases: int
 
 
+class CanadaVaccinationData(pydantic.BaseModel):
+    SOURCE: ClassVar[
+        str
+    ] = "https://raw.githubusercontent.com/ccodwg/Covid19Canada/master/timeseries_prov/vaccine_completion_timeseries_prov.csv"
+
+    province: str
+    #date_vaccine_completed: date
+    cumulative_cvaccine: int
+
+
 # Represents number of people vaccinated.
 class Vaccination(pydantic.BaseModel):
     partial_vaccinations: int = 0
@@ -1035,24 +1045,33 @@ def main() -> None:
                 )
             place.population = line.pop
 
+        def get_full_canadian_province(short_province_name):
+            if (short_province_name == "BC"):
+                return "British Columbia"
+            elif (short_province_name == "NL"):
+                return "Newfoundland and Labrador"
+            elif (short_province_name == "NWT"):
+                return "Northwest Territories"
+            elif (short_province_name == "PEI"):
+                return "Prince Edward Island"
+            return short_province_name
+
         # Add Canada Public Health Unit (county-level) cumulative cases data
         for line in parse_csv(cache, CanadaPrevalenceData, CanadaPrevalenceData.SOURCE):
             if line.health_region == "Not Reported" or line.province == line.health_region:
                 continue
-            province_full = line.province
-            if (line.province == "BC"):
-                province_full = "British Columbia"
-            elif (line.province == "NL"):
-                province_full = "Newfoundland and Labrador"
-            elif (line.province == "NWT"):
-                province_full = "Northwest Territories"
-            elif (line.province == "PEI"):
-                province_full = "Prince Edward Island"
-
+            province_full = get_full_canadian_province(line.province)
             place = data.get_county(line.health_region, state=province_full, country="Canada")
             processed_date = datetime.strptime(line.date_report, "%d-%m-%Y").date()
             if (processed_date >= populate_since):
                 place.cumulative_cases[processed_date] = line.cumulative_cases
+
+        # Add Canada provincial vaccination data
+        for line in parse_csv(cache, CanadaVaccinationData, CanadaVaccinationData.SOURCE):
+            province_full = get_full_canadian_province(line.province)
+            place = data.get_state(province_full, country="Canada")
+            # assuming ascending date order (oldest to newest)
+            place.set_total_vaccines(0, line.cumulative_cvaccine)
 
     finally:
         cache.save()
