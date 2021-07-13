@@ -1,0 +1,6 @@
+Name,Population,Cases in past week,Reported prevalence,Underreporting factor,Delay factor,Estimated prevalence
+Entire state,977457,10,1.1e-05,3.8975,1.0,4.4e-05
+Zone 1 - Western,199165,1,1e-05,3.8975,1.0,3.9e-05
+Zone 2 - Northern,148470,0,7e-06,3.8975,1.0,2.6e-05
+Zone 3 - Eastern,162088,3,2.5e-05,3.8975,1.0,9.6e-05
+Zone 4 - Central,461672,6,1.5e-05,3.8975,1.0,5.9e-05

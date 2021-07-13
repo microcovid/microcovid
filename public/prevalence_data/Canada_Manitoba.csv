@@ -1,0 +1,7 @@
+Name,Population,Cases in past week,Reported prevalence,Underreporting factor,Delay factor,Estimated prevalence
+Entire state,1377517,404,0.000294,3.8975,1.0494,0.001202
+Interlake-Eastern,133882,97,0.000732,3.8975,2.0,0.005706
+Northern,75783,28,0.000383,3.8975,1.0,0.001491
+Prairie Mountain,171368,28,0.000169,3.8975,1.0,0.00066
+Southern Health,208018,57,0.000279,3.8975,1.1875,0.00129
+Winnipeg,780414,194,0.00025,3.8975,1.0543,0.001027

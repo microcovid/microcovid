@@ -1,3 +1,3 @@
 Name,Population,Cases in past week,Reported prevalence,Underreporting factor,Delay factor,Estimated prevalence
-Entire country,4822233,10,2e-06,2.0601,1.0,5e-06
-Cook Islands,17459,0,5.7e-05,2.0601,1.0,0.000118
+Entire country,4822233,23,5e-06,2.06,1.4375,1.5e-05
+Cook Islands,17459,0,5.7e-05,2.06,1.0,0.000118
