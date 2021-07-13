@@ -115,7 +115,7 @@ export const LocationPrevalenceDetails: React.FunctionComponent<{
                 >
                   Our World in Data
                 </a>{' '}
-                (international positive test rates), and {}
+                (international positive test rates), {}
                 <a
                   href="https://covid19.geo-spatial.org/despre"
                   target="_blank"
@@ -123,7 +123,22 @@ export const LocationPrevalenceDetails: React.FunctionComponent<{
                 >
                   Coronavirus COVID-19 România
                 </a>{' '}
-                (Romania reported cases).
+                (Romania reported cases), and {}
+                <a
+                  href="https://opencovid.ca/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  COVID-19 Canada Open Data Working Group
+                </a>{' '} (Canada province and PHU data, {}
+                <a
+                  href="https://creativecommons.org/licenses/by/4.0/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                CC BY 4.0
+                </a>
+                ).
               </Trans>
             </p>
           </div>
