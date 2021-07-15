@@ -65,7 +65,7 @@ This table provides a fuller explanation for each of the Built-in Person Risk pr
   <tr>
    <td>Avg local resident who works from home
    </td>
-   <td>The known person one may encounter peripherally, like a co-worker who does not interact with the public and can socially distance in an office. There are more interactions than someone who solely works at home, but not as many as someone who works with the public.
+   <td>A known person who has no in-person interactions with the public or other coworkers as part of their job. Assumed to have the same errand and socialization patterns as an average local resident.
    </td>
   </tr>
   <tr>
@@ -105,9 +105,9 @@ This table provides a fuller explanation for each of the Built-in Person Risk pr
    </td>
   </tr>
   <tr>
-   <td>Has 1/4/10 close contactwhose risk profile we don't know. No other risk activities.
+   <td>Has 1/4/10 close contacts whose risk profile we don't know. No other risk activities.
    </td>
-   <td>A known person who has close contact (including roommates) with 1/4/10 people who do not work with the public, and are in contact with the outside world (may be unmasked, indoors, or within 20 feet. Assumes all people are going on one grocery/errand run in the past week. 
+   <td>A known person who has close contact (including roommates) with 1/4/10 people who are in contact with the outside world (may be unmasked, indoors, or within 20 feet of others). Assumes all people have done one grocery/errand run in the past week.
    </td>
   </tr>
   <tr>
